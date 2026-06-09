@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Checkout - Electric Shop</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .checkout-container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        input { width: 100%; margin-bottom: 15px; padding: 10px; }
+        button { background-color: #007bff; color: white; border: none; padding: 12px; width: 100%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="checkout-container">
+    <h2>ஆர்டரை உறுதிப்படுத்துங்கள்</h2>
+    <form th:action="@{/orders/submit}" method="post">
+        <input type="text" name="customerName" placeholder="உங்கள் பெயர்" required>
+        <input type="email" name="customerEmail" placeholder="மின்னஞ்சல்" required>
+        <input type="text" name="address" placeholder="டெலிவரி முகவரி" required>
+
+        <p>மொத்தத் தொகை: <strong>₹<span th:text="${totalAmount}">0</span></strong></p>
+
+        <button type="submit">ஆர்டரை முடிக்கவும் (Place Order)</button>
+    </form>
+</div>
+
+</body>
+</html>

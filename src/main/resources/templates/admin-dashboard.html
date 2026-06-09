@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        .header { display: flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>அட்மின் டேஷ்போர்டு</h1>
+    <a href="/admin/products/add">புதிய பொருள் சேர்</a>
+</div>
+
+<h2>வந்திருக்கும் ஆர்டர்கள்</h2>
+<table>
+    <tr>
+        <th>ஆர்டர் ID</th>
+        <th>வாடிக்கையாளர்</th>
+        <th>மொத்தத் தொகை</th>
+        <th>நிலை (Status)</th>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}">ID</td>
+        <td th:text="${order.customer != null ? order.customer.fullName : 'N/A'}">பெயர்</td>
+        <td th:text="'₹' + ${order.totalAmount}">விலை</td>
+        <td th:text="${order.status}">Status</td>
+    </tr>
+</table>
+
+</body>
+</html>

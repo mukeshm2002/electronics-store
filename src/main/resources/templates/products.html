@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Products</title>
+    <style>
+        /* Global Styles */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f8f9fa; color: #333; }
+
+        /* Navigation Bar */
+        .navbar { background: #2c3e50; color: white; padding: 15px; text-align: center; }
+        .navbar a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+
+        /* Product Grid */
+        .container { padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+
+        /* Card Styles */
+        .card { background: white; border-radius: 10px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.3s; }
+        .card:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
+
+        /* Buttons */
+        .btn { background: #e67e22; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn:hover { background: #d35400; }
+    </style>
+</head>
+<body>
+<h1>எங்கள் மின்சாதனங்கள்</h1>
+<div class="grid">
+    <div class="product-card" th:each="p : ${products}">
+        <img th:src="${p.imageUrl}" width="100">
+        <h3 th:text="${p.name}">பெயர்</h3>
+        <a th:href="@{/product/{id}(id=${p.id})}">விவரங்கள் பார்க்க</a>
+    </div>
+</div>
+</body>
+</html>
