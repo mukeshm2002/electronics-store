@@ -38,4 +38,10 @@ public class ProductController {
         model.addAttribute("products", productService.getAllProducts());
         return "products"; // Refers to products.html
     }
+
+    @PostMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return "redirect:/admin/products/products"; // Redirect back to list
+    }
 }
