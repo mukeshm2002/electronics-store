@@ -2,81 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Products | Electric Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.1);
             --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
-            --text-color: #2d3436;
+            --danger-gradient: linear-gradient(135deg, #ff7675, #d63031);
+            --bg-color: #f8f9fa;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #f0f2f5;
-            margin: 0;
-            color: var(--text-color);
-        }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-color); margin: 0; color: #2d3436; }
 
-        /* Modern Navbar */
-        .navbar {
-            background: #ffffff;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
+        /* Navbar */
+        .navbar { background: #ffffff; padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: #636e72; font-weight: 600; }
 
-        /* Creative Grid */
-        .container { padding: 40px 5%; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
+        .container { padding: 50px 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 
-        /* Product Cards - Glassmorphism Effect */
+        /* Card Styling */
         .card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 20px;
-            transition: 0.4s ease;
-            border: 1px solid rgba(255,255,255,0.3);
+            background: #ffffff; border-radius: 20px; padding: 20px; transition: 0.4s;
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
         }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(110, 142, 251, 0.2); }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(110, 142, 251, 0.2);
-        }
-
+        /* Image Styling */
         .card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 15px;
+            width: 100%; height: 200px;
+            object-fit: contain; /* படம் முழுமையாகத் தெரியும் */
+            background-color: #f8f9fa;
+            border-radius: 15px; margin-bottom: 15px; padding: 10px;
         }
 
-        /* Creative Buttons */
+        /* Buttons */
         .btn {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 600;
-            transition: 0.3s;
+            background: var(--primary-gradient); color: white; padding: 10px 25px;
+            border-radius: 50px; text-decoration: none; display: block;
+            font-weight: 600; border: none; cursor: pointer; width: 80%; margin-bottom: 10px;
         }
-        .btn:hover { opacity: 0.9; transform: scale(1.05); }
-
-        .btn-delete { background: #ff7675; }
+        .btn-delete { background: var(--danger-gradient); }
+        .btn:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <h1>Electronics Store</h1>
-    <a href="/">Home</a> | <a href="/cart">Cart</a>
+    <h2>Electronics Store</h2>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/cart">Cart</a>
+    </div>
 </nav>
 
 <div class="container">
@@ -89,7 +65,7 @@
             <a th:href="@{/product/{id}(id=${p.id})}" class="btn">View Details</a>
 
             <form th:action="@{/admin/products/delete/{id}(id=${p.id})}" method="post"
-                  onsubmit="return confirm('Are you sure you want to delete this product?');">
+                  onsubmit="return confirm('Are you sure you want to delete this product?');" style="width: 100%;">
                 <button type="submit" class="btn btn-delete">Delete Product</button>
             </form>
         </div>
