@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Electric Shop | Welcome</title>
+    <title>Electric Shop | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
             --text-color: #2d3436;
+            --bg-color: #f8f9fa;
         }
 
-        body { font-family: 'Poppins', sans-serif; background: #f8f9fa; margin: 0; color: var(--text-color); }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-color); margin: 0; color: var(--text-color); }
 
-        /* Modern Navbar */
+        /* Navbar */
         .navbar { background: #ffffff; padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .nav-links a { margin-left: 20px; text-decoration: none; color: #636e72; font-weight: 600; }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: #636e72; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: #6e8efb; }
 
         /* Hero Section */
         .hero { background: var(--primary-gradient); color: white; padding: 60px 5%; text-align: center; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; }
         .hero h1 { font-size: 3rem; margin-bottom: 10px; }
 
-        /* Grid Layout */
+        /* Product Grid */
         .container { padding: 50px 5%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 
-        .card { background: #ffffff; border-radius: 20px; padding: 20px; transition: 0.4s; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .card {
+            background: #ffffff; border-radius: 20px; padding: 20px; transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; align-items: center;
+        }
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(110, 142, 251, 0.2); }
-        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; }
 
-        .btn { background: var(--primary-gradient); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; display: inline-block; font-weight: 600; border: none; cursor: pointer; }
+        /* Updated Image Styling */
+        .card img {
+            width: 100%; height: 200px;
+            object-fit: contain; /* முக்கிய மாற்றம் */
+            background-color: #f8f9fa;
+            border-radius: 15px; margin-bottom: 15px; padding: 10px;
+        }
+
+        .btn {
+            background: var(--primary-gradient); color: white; padding: 12px 25px;
+            border-radius: 50px; text-decoration: none; display: inline-block;
+            font-weight: 600; border: none; cursor: pointer; width: 100%; text-align: center;
+        }
+        .btn:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
@@ -35,9 +53,8 @@
 <nav class="navbar">
     <h2>Electric Shop</h2>
     <div class="nav-links">
-        <a href="/products">All Products</a>
         <a href="/cart">Cart</a>
-        <a href="/admin/products/products">Admin</a>
+        <a href="/admin/products/products">Admin Dashboard</a>
     </div>
 </nav>
 
@@ -50,7 +67,7 @@
     <h2>Featured Products</h2>
     <div class="grid">
         <div class="card" th:each="product : ${products}">
-            <img th:src="${product.imageUrl}" alt="Product">
+            <img th:src="${product.imageUrl}" alt="Product Image">
             <h3 th:text="${product.name}">Name</h3>
             <p><strong>₹<span th:text="${product.price}">0</span></strong></p>
             <a th:href="@{/product/{id}(id=${product.id})}" class="btn">View Details</a>
