@@ -15,8 +15,18 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(Order order) {
-        // ஆர்டர் செய்யும் போது மொத்தத் தொகை மற்றும் ஸ்டேட்டஸை உறுதி செய்தல்
+        // 1. ஆர்டர் நிலையை உறுதி செய்தல்
         order.setStatus("PENDING");
+
+        // 2. மொத்தத் தொகையைக் கணக்கிடுதல்
+        if (order.getItems() != null) {
+            double total = order.getItems().stream()
+                    .mapToDouble(item -> item.getPrice() * item.getQuantity())
+                    .sum();
+            order.setTotalAmount(total);
+        }
+
+        // 3. சேமித்தல்
         return orderRepository.save(order);
     }
 }
