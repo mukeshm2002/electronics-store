@@ -1,27 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Your Cart</title>
+    <title>Your Shopping Cart</title>
     <style>
-        .cart-table { width: 100%; border-collapse: collapse; }
-        .cart-table td, th { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --bg-color: #f4f7f6;
+            --white: #ffffff;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
+        .navbar { background: var(--primary-color); padding: 1.5rem; text-align: center; color: var(--white); }
+        .container { max-width: 900px; margin: 30px auto; padding: 25px; background: var(--white); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+        .cart-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .cart-table th, .cart-table td { border-bottom: 1px solid #eee; padding: 15px; text-align: left; }
+        .cart-table th { background-color: #f8f9fa; }
+
+        .btn { background: var(--secondary-color); color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: bold; }
+        .btn:hover { background: #d35400; }
+        .empty-msg { text-align: center; padding: 50px; color: #777; }
     </style>
 </head>
 <body>
 
-<h2>உங்கள் கூடை (Cart)</h2>
-<table class="cart-table">
-    <tr>
-        <th>பொருள் பெயர்</th>
-        <th>விலை</th>
-    </tr>
-    <tr th:each="item : ${cartItems}">
-        <td th:text="${item.name}">பெயர்</td>
-        <td th:text="${item.price}">விலை</td>
-    </tr>
-</table>
-<br>
-<a href="/orders/checkout"><button>Checkout செய்ய</button></a>
+<nav class="navbar">
+    <h1>Your Shopping Cart</h1>
+</nav>
+
+<div class="container">
+    <div th:if="${cartItems.isEmpty()}" class="empty-msg">
+        <h3>Your cart is empty.</h3>
+        <a href="/products" class="btn">Continue Shopping</a>
+    </div>
+
+    <table class="cart-table" th:if="${!cartItems.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cartItems}">
+            <td th:text="${item.name}">Name</td>
+            <td th:text="'₹' + ${item.price}">Price</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 20px;" th:if="${!cartItems.isEmpty()}">
+        <a href="/orders/checkout" class="btn">Proceed to Checkout</a>
+    </div>
+</div>
 
 </body>
 </html>

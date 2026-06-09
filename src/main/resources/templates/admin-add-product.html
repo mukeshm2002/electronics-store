@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Product - Admin</title>
+    <title>Add Product | Admin</title>
     <style>
-        body { font-family: sans-serif; padding: 40px; background-color: #f9f9f9; }
-        .form-container { background: white; padding: 20px; border-radius: 8px; max-width: 500px; margin: auto; }
-        input, textarea, select { width: 100%; margin-bottom: 15px; padding: 10px; }
-        button { background-color: #28a745; color: white; border: none; padding: 12px; width: 100%; cursor: pointer; }
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --bg-color: #f4f7f6;
+            --white: #ffffff;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
+
+        .navbar { background: var(--primary-color); padding: 1.5rem; text-align: center; color: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        .container { max-width: 500px; margin: 40px auto; padding: 30px; background: var(--white); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+
+        h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
+
+        input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        textarea { height: 100px; resize: vertical; }
+
+        .btn { background: #28a745; color: white; padding: 12px; border: none; border-radius: 5px; width: 100%; cursor: pointer; font-weight: bold; font-size: 1rem; margin-top: 10px; }
+        .btn:hover { background: #218838; }
     </style>
 </head>
 <body>
 
-<div class="form-container">
-    <h2>புதிய பொருளைச் சேர்க்கவும்</h2>
-    <form th:action="@{/admin/products/save}" method="post" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="பொருள் பெயர்" required>
-        <textarea name="description" placeholder="விளக்கம்"></textarea>
-        <input type="number" name="price" placeholder="விலை" step="0.01" required>
-        <input type="number" name="stockQuantity" placeholder="இருப்பு அளவு">
+<nav class="navbar">
+    <h1>Admin Panel</h1>
+</nav>
 
-        <label>படம் அப்லோட் செய்யவும்:</label>
+<div class="container">
+    <h2>Add New Product</h2>
+    <form th:action="@{/admin/products/save}" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Product Name" required>
+        <textarea name="description" placeholder="Description"></textarea>
+        <input type="number" name="price" placeholder="Price" step="0.01" required>
+        <input type="number" name="stockQuantity" placeholder="Stock Quantity">
+
+        <label style="font-weight: bold;">Upload Product Image:</label>
         <input type="file" name="file" accept="image/*" required>
 
-        <button type="submit">பொருளைச் சேமி</button>
+        <button type="submit" class="btn">Save Product</button>
     </form>
 </div>
-
-<script>
-    console.log("Admin product upload form ready.");
-</script>
 
 </body>
 </html>

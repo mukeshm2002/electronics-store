@@ -3,32 +3,48 @@
 <head>
     <title>Electric Shop</title>
     <style>
-        /* Internal CSS */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
-        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        img { max-width: 100%; height: auto; border-radius: 5px; }
-        button { background-color: #007bff; color: white; border: none; padding: 10px; cursor: pointer; }
+        /* Global Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); margin: 0; color: var(--text-color); }
+
+        .navbar { background: var(--primary-color); padding: 1.5rem; text-align: center; color: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width: 1000px; margin: 30px auto; padding: 25px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        .card { background: var(--white); border: 1px solid #ddd; padding: 20px; border-radius: 8px; text-align: center; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 15px; }
+
+        .btn { background: var(--secondary-color); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: bold; }
+        .btn:hover { background: #d35400; }
     </style>
 </head>
 <body>
 
-<h1>எங்கள் மின்சாதனக் கடை</h1>
+<nav class="navbar">
+    <h1>Electronics Store</h1>
+</nav>
 
-<div class="product-grid">
-    <div class="card" th:each="product : ${products}">
-        <img th:src="${product.imageUrl}" alt="Product Image">
-        <h3 th:text="${product.name}">பொருள் பெயர்</h3>
-        <p>விலை: ₹<span th:text="${product.price}">0</span></p>
-        <button onclick="addToCart()">வாங்கு</button>
+<div class="container">
+    <h2>Available Products</h2>
+    <div class="grid">
+        <div class="card" th:each="product : ${products}">
+            <img th:src="${product.imageUrl}" alt="Product Image">
+            <h3 th:text="${product.name}">Product Name</h3>
+            <p>Price: ₹<span th:text="${product.price}">0</span></p>
+
+            <form th:action="@{/cart/add/{id}(id=${product.id})}" method="post">
+                <button type="submit" class="btn">Add to Cart</button>
+            </form>
+        </div>
     </div>
 </div>
 
-<script>
-    /* Internal JS */
-    function addToCart() {
-        alert("பொருள் கார்ட்டில் சேர்க்கப்பட்டது!");
-    }
-</script>
 </body>
 </html>

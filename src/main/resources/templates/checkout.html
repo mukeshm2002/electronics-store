@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Checkout - Electric Shop</title>
+    <title>Checkout | Electric Shop</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        .checkout-container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
-        input { width: 100%; margin-bottom: 15px; padding: 10px; }
-        button { background-color: #007bff; color: white; border: none; padding: 12px; width: 100%; cursor: pointer; }
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --bg-color: #f4f7f6;
+            --white: #ffffff;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
+
+        .navbar { background: var(--primary-color); padding: 1.5rem; text-align: center; color: var(--white); }
+
+        .container { max-width: 500px; margin: 30px auto; padding: 30px; background: var(--white); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+
+        h2 { text-align: center; color: var(--primary-color); }
+
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+
+        .btn { background: var(--secondary-color); color: white; padding: 12px; border: none; border-radius: 5px; width: 100%; cursor: pointer; font-weight: bold; font-size: 1rem; margin-top: 10px; }
+        .btn:hover { background: #d35400; }
+
+        .total-section { font-size: 1.2rem; margin: 20px 0; text-align: center; }
     </style>
 </head>
 <body>
 
-<div class="checkout-container">
-    <h2>ஆர்டரை உறுதிப்படுத்துங்கள்</h2>
+<nav class="navbar">
+    <h1>Checkout</h1>
+</nav>
+
+<div class="container">
+    <h2>Confirm Your Order</h2>
     <form th:action="@{/orders/submit}" method="post">
-        <input type="text" name="customerName" placeholder="உங்கள் பெயர்" required>
-        <input type="email" name="customerEmail" placeholder="மின்னஞ்சல்" required>
-        <input type="text" name="address" placeholder="டெலிவரி முகவரி" required>
+        <input type="text" name="customerName" placeholder="Full Name" required>
+        <input type="email" name="customerEmail" placeholder="Email Address" required>
+        <input type="text" name="address" placeholder="Delivery Address" required>
 
-        <p>மொத்தத் தொகை: <strong>₹<span th:text="${totalAmount}">0</span></strong></p>
+        <div class="total-section">
+            <p>Total Amount: <strong>₹<span th:text="${totalAmount}">0</span></strong></p>
+        </div>
 
-        <button type="submit">ஆர்டரை முடிக்கவும் (Place Order)</button>
+        <button type="submit" class="btn">Place Order</button>
     </form>
 </div>
 
